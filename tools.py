@@ -38,9 +38,13 @@ def read_file(path, start_line=None, end_line=None):
 
 
 def find_dependents(function_name, max_results=30):
-    """Find likely callers of a function/class: greps for the name being
-    called or referenced, across all .py files in target_repo/."""
-    pattern = re.compile(rf"\b{re.escape(function_name)}\b")
+    """find likely callers of a function/class: greps for the name being
+    called or referenced, across all .py files in target_repo/.
+    accepts either a bare name ('route') or a qualified one ('Scaffold.route') —
+    qualified names are reduced to the last segment, since callers rarely
+    write the class prefix."""
+    bare_name = function_name.rsplit(".", 1)[-1]
+    pattern = re.compile(rf"\b{re.escape(bare_name)}\b")
     root = Path(TARGET_DIR)
     matches = []
 
@@ -62,10 +66,12 @@ def find_dependents(function_name, max_results=30):
 
 
 def find_definition(name):
-    """Find where a function or class is defined, via grep for 'def name' /
-    'class name'."""
+    """find where a function or class is defined, via grep for 'def name' /
+    'class name'. Accepts either a bare name ('route') or a qualified one
+    ('Scaffold.route') — qualified names are reduced to the last segment."""
+    bare_name = name.rsplit(".", 1)[-1]
     root = Path(TARGET_DIR)
-    pattern = re.compile(rf"^\s*(def|class)\s+{re.escape(name)}\b")
+    pattern = re.compile(rf"^\s*(def|class)\s+{re.escape(bare_name)}\b")
     results = []
 
     for path in root.rglob("*.py"):
