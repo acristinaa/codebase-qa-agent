@@ -1,2 +1,5 @@
-# Dependencies added per feature branch.
-# feature/retrieval: chromadb, ...
+# feature/retrieval
+openai
+chromadb
+python-dotenv
+tiktoken
