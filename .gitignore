@@ -6,4 +6,5 @@ venv/
 .env
 chroma_db/
 .chroma/
+target_repo/
 
