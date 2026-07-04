@@ -7,4 +7,5 @@ venv/
 chroma_db/
 .chroma/
 target_repo/
+chunks.json
 
