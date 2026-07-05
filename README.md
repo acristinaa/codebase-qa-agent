@@ -35,7 +35,8 @@ source .venv/bin/activate
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3.Add your OpenAI key
+# 3. Add your API key
+# This project defaults to OpenAI so adjust the variable names if you swap providers
 echo "OPENAI_API_KEY=sk-your-key-here" > .env
 echo "OPENAI_MODEL=gpt-4o" >> .env
 
